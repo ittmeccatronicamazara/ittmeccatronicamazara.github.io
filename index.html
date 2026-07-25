@@ -96,13 +96,11 @@
             
             const url = `http://${arduinoIP}${endpoint}`;
             
-            fetch(url, { mode: 'no-cors' })
-                .then(() => {
-                    logMessage(`Comando ${nomeComando} inviato con successo all'Arduino!`);
-                })
-                .catch(err => {
-                    logMessage(`Errore di rete o blocco browser su ${nomeComando}`);
-                });
+            // Metodo dell'immagine invisibile per evitare i blocchi di sicurezza misti del browser
+            const img = new Image();
+            img.src = url + "?t=" + new Date().getTime();
+            
+            logMessage(`Comando ${nomeComando} inviato all'Arduino!`);
         }
 
         document.getElementById('btn-ciclo').addEventListener('click', () => {
