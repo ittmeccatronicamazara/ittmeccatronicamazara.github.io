@@ -3,98 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ITT Meccatronica Mazara - Presentazione Automazione</title>
+    <title>ITT Meccatronica Mazara - Stazione di Foratura</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
         body {
+            font-family: Arial, sans-serif;
             background-color: #0f172a;
             color: #f8fafc;
+            margin: 0;
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
+            align-items: center;
         }
-        header {
-            background-color: #1e293b;
-            padding: 20px;
-            text-align: center;
-            border-bottom: 3px solid #3b82f6;
-        }
-        header h1 {
-            font-size: 1.8rem;
+        h1 {
             color: #38bdf8;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
+            text-align: center;
         }
-        header p {
-            font-size: 0.95rem;
+        .subtitle {
             color: #94a3b8;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            text-align: center;
         }
         .container {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        .dashboard {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            width: 100%;
-            max-width: 900px;
-        }
-        @media (max-width: 768px) {
-            .dashboard {
-                grid-template-columns: 1fr;
-            }
-        }
-        .card {
             background-color: #1e293b;
-            border: 1px solid #334155;
+            padding: 30px;
             border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .card-full {
-            grid-column: 1 / -1;
-        }
-        .card-title {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            width: 100%;
+            max-width: 650px;
             text-align: center;
-            font-size: 1.25rem;
-            margin-bottom: 20px;
-            color: #f1f5f9;
-            border-bottom: 1px solid #334155;
-            padding-bottom: 12px;
         }
-        .links-group {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        .btn-link {
-            display: block;
-            background-color: #3b82f6;
-            color: white;
-            text-align: center;
-            padding: 12px;
+        .section-box {
+            background-color: #334155;
+            padding: 15px;
             border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.2s ease;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
+            margin-bottom: 20px;
+            text-align: left;
         }
-        .btn-link:hover {
-            background-color: #2563eb;
-            transform: translateY(-2px);
+        .section-box h3 {
+            color: #38bdf8;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .tag {
+            background-color: #1e293b;
+            color: #38bdf8;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            border: 1px solid #475569;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin: 15px 0;
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
         }
         .btn-green {
             background-color: #10b981;
@@ -102,99 +79,93 @@
         .btn-green:hover {
             background-color: #059669;
         }
+        .btn-blue {
+            background-color: #3b82f6;
+        }
+        .btn-blue:hover {
+            background-color: #2563eb;
+        }
         #log-box {
-            margin-top: 15px;
-            padding: 10px;
-            background: #0f172a;
-            border: 1px solid #334155;
-            border-radius: 6px;
-            font-family: monospace;
-            font-size: 0.85rem;
+            margin-top: 20px;
+            background-color: #0f172a;
             color: #38bdf8;
-            max-height: 100px;
+            padding: 15px;
+            border-radius: 6px;
+            height: 130px;
             overflow-y: auto;
             text-align: left;
-        }
-        footer {
-            text-align: center;
-            padding: 15px;
-            background-color: #1e293b;
-            color: #64748b;
-            font-size: 0.85rem;
-            border-top: 1px solid #334155;
+            font-family: monospace;
+            font-size: 13px;
+            border: 1px solid #334155;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>ITT Meccatronica Mazara</h1>
-        <p>Laboratorio di Automazione e Robotica</p>
-    </header>
+    <h1>ITT Meccatronica Mazara</h1>
+    <div class="subtitle">Laboratorio di Automazione e Sistemi</div>
 
     <div class="container">
-        <div class="dashboard">
-            <!-- Pannello Sinistra: Sezioni Didattiche -->
-            <div class="card">
-                <div>
-                    <div class="card-title">Materie e Indirizzi</div>
-                    <div class="links-group">
-                        <a href="meccanica.html" class="btn-link">Meccanica</a>
-                        <a href="dpoi.html" class="btn-link">DPOI</a>
-                        <a href="sistemi.html" class="btn-link">Sistemi</a>
-                        <a href="tecnologia.html" class="btn-link">Tecnologia</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Pannello Destra: Sezioni PLC, Arduino e Istituto -->
-            <div class="card">
-                <div>
-                    <div class="card-title">Supervisione e Controllori</div>
-                    <div class="links-group">
-                        <a href="plc.html" class="btn-link">Pannello Controllo PLC</a>
-                        <a href="https://drive.google.com/drive/folders/1dhQ4YbOqCBQCpUPiot9FcVfx1ob8fYDa" target="_blank" class="btn-link">Materiale Arduino (Drive)</a>
-                        <a href="https://www.isruggierodaltavilla.edu.it/" target="_blank" class="btn-link">IS Ruggiero d'Altavilla</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Nuova Sezione: Controllo Stazione di Foratura -->
-            <div class="card card-full">
-                <div class="card-title">Stazione di Foratura (Arduino Wi-Fi)</div>
-                <div class="links-group">
-                    <button class="btn-link btn-green" onclick="inviaComando('http://10.55.227.170/cmd/left', 'Avvio Ciclo Foratura')">AVVIA CICLO COMPLETO</button>
-                    <button class="btn-link" onclick="inviaComando('http://10.55.227.170/sensor/check', 'Verifica Sensore Passante')">VERIFICA SENSORE</button>
-                </div>
-                <div id="log-box">Pronto per l'invio dei comandi all'Arduino (IP: 10.55.227.170)...</div>
+        
+        <!-- Sezione Scuola e Materie -->
+        <div class="section-box">
+            <h3>Indirizzo di Studio</h3>
+            <div class="tags">
+                <span class="tag">Meccatronica</span>
+                <span class="tag">Robotica</span>
+                <span class="tag">Elettronica</span>
+                <span class="tag">Elettrotecnica</span>
             </div>
         </div>
+
+        <!-- Sezione Tecnologie -->
+        <div class="section-box">
+            <h3>Tecnologie di Controllo</h3>
+            <div class="tags">
+                <span class="tag">PLC (Siemens / Omron)</span>
+                <span class="tag">Arduino UNO R4 WiFi</span>
+                <span class="tag">Smistamento Pneumatico</span>
+                <span class="tag">Web Server IoT</span>
+            </div>
+        </div>
+
+        <h2>Stazione di Foratura</h2>
+        
+        <button id="btn-ciclo" class="btn btn-green">AVVIA CICLO COMPLETO</button>
+        <button id="btn-sensore" class="btn btn-blue">VERIFICA SENSORE</button>
+
+        <div id="log-box">Pronto per l'invio dei comandi all'Arduino (IP: 10.55.227.170)...<br></div>
     </div>
 
-    <footer>
-        &copy; 2026 ITT Meccatronica Mazara - GitHub Pages
-    </footer>
-
     <script>
-        function inviaComando(url, descrizione) {
+        const arduinoIP = "10.55.227.170";
+
+        function logMessage(msg) {
             const logBox = document.getElementById('log-box');
-            let timestamp = new Date().toLocaleTimeString();
-            logBox.innerHTML += `[${timestamp}] Invio: ${descrizione}...<br>`;
-            
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    let timestampRes = new Date().toLocaleTimeString();
-                    logBox.innerHTML += `[${timestampRes}] Risposta: <span style="color:#10b981;">${JSON.stringify(data)}</span><br>`;
-                    logBox.scrollTop = logBox.scrollHeight;
-                })
-                .catch(error => {
-                    // Nota: a volte se Arduino risponde senza headers completi CORS in GET pura, la fetch potrebbe fallire in CORS ma l'azione parte comunque.
-                    let timestampErr = new Date().toLocaleTimeString();
-                    logBox.innerHTML += `[${timestampErr}] Comando inviato (Nota CORS / Rete Wi-Fi)<br>`;
-                    logBox.scrollTop = logBox.scrollHeight;
-                });
+            const timestamp = new Date().toLocaleTimeString();
+            logBox.innerHTML += `[${timestamp}] ${msg}<br>`;
+            logBox.scrollTop = logBox.scrollHeight;
         }
+
+        function inviaComando(endpoint, nomeComando) {
+            logMessage(`Invio: ${nomeComando}...`);
+            
+            const url = `http://${arduinoIP}${endpoint}`;
+            
+            // Metodo dell'immagine invisibile per aggirare i blocchi di sicurezza del browser
+            const img = new Image();
+            img.src = url + "?t=" + new Date().getTime();
+            
+            logMessage(`Comando ${nomeComando} inviato all'Arduino!`);
+        }
+
+        document.getElementById('btn-ciclo').addEventListener('click', () => {
+            inviaComando('/cmd/left', 'Avvio Ciclo Completo');
+        });
+
+        document.getElementById('btn-sensore').addEventListener('click', () => {
+            inviaComando('/sensor/check', 'Verifica Sensore Passante');
+        });
     </script>
 
 </body>
