@@ -78,18 +78,6 @@
             flex-direction: column;
             gap: 12px;
         }
-        .controls-grid {
-            display: none;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 12px;
-        }
-        .controls-grid.active {
-            display: grid;
-        }
-        .btn-full {
-            grid-column: 1 / -1;
-        }
         .btn-link {
             display: block;
             background-color: #3b82f6;
@@ -113,18 +101,6 @@
         }
         .btn-green:hover {
             background-color: #059669;
-        }
-        .btn-cmd {
-            background-color: #10b981;
-        }
-        .btn-cmd:hover {
-            background-color: #059669;
-        }
-        .btn-sensor {
-            background-color: #06b6d4;
-        }
-        .btn-sensor:hover {
-            background-color: #0891b2;
         }
         #log-box {
             margin-top: 15px;
@@ -176,33 +152,21 @@
                 <div>
                     <div class="card-title">Supervisione e Controllori</div>
                     <div class="links-group">
-                        <!-- Pulsante principale "Stazione di Foratura" che apre/chiude i comandi -->
-                        <button class="btn-link btn-green btn-full" onclick="toggleStazioneForatura()">Stazione di Foratura</button>
-                        
-                        <!-- Griglia dei comandi nascosta inizialmente -->
-                        <div id="stazione-controls" class="controls-grid">
-                            <button class="btn-link btn-cmd btn-full" onclick="inviaComando('http://10.124.20.170/cmd/left', 'Esegui Ciclo Completo (Staz. Foratura)')">Esegui Ciclo Completo (Staz. Foratura)</button>
-                            <button class="btn-link btn-cmd" onclick="inviaComando('http://10.124.20.170/cmd/uscita', 'Uscita Braccio (D)')">Uscita Braccio (D)</button>
-                            <button class="btn-link btn-cmd" onclick="inviaComando('http://10.124.20.170/cmd/rotazione', 'Rotazione Braccio (A)')">Rotazione Braccio (A)</button>
-                            <button class="btn-link btn-cmd" onclick="inviaComando('http://10.124.20.170/cmd/abbassa', 'Abbassa Braccio (B)')">Abbassa Braccio (B)</button>
-                            <button class="btn-link btn-cmd" onclick="inviaComando('http://10.124.20.170/cmd/pinza', 'Chiusura Pinza (C)')">Chiusura Pinza (C)</button>
-                            <button class="btn-link btn-cmd" onclick="inviaComando('http://10.124.20.170/cmd/foratura', 'Attiva Foratura (H)')">Attiva Foratura (H)</button>
-                            <button class="btn-link btn-cmd" onclick="inviaComando('http://10.124.20.170/cmd/ruotapinza', 'Ruota Pinza (E)')">Ruota Pinza (E)</button>
-                        </div>
-
-                        <a href="https://drive.google.com/drive/folders/1dhQ4YbOqCBQCpUPiot9FcVfx1ob8fYDa" target="_blank" class="btn-link" style="margin-top: 12px;">Materiale Arduino (Drive)</a>
+                        <a href="plc.html" class="btn-link">Pannello Controllo PLC</a>
+                        <a href="https://drive.google.com/drive/folders/1dhQ4YbOqCBQCpUPiot9FcVfx1ob8fYDa" target="_blank" class="btn-link">Materiale Arduino (Drive)</a>
                         <a href="https://www.isruggierodaltavilla.edu.it/" target="_blank" class="btn-link">IS Ruggiero d'Altavilla</a>
                     </div>
                 </div>
             </div>
 
-            <!-- Sezione: Controllo Stazione di Foratura (Sensore e Log) -->
+            <!-- Sezione: Controllo Stazione di Foratura -->
             <div class="card card-full">
                 <div class="card-title">Controllo Hardware (Arduino / PLC)</div>
                 <div class="links-group">
-                    <button class="btn-link btn-sensor btn-full" onclick="inviaComando('http://10.124.20.170/sensor/check', 'Verifica Sensore Passante')">Verifica Sensore Passante</button>
+                    <button class="btn-link btn-green" onclick="inviaComando('http://10.124.20.170/cmd/left', 'Esegui Ciclo Completo (Staz. Foratura)')">Esegui Ciclo Completo (Staz. Foratura)</button>
+                    <button class="btn-link" onclick="inviaComando('http://10.124.20.170/sensor/check', 'Verifica Sensore Passante')">Verifica Sensore Passante</button>
                 </div>
-                <div id="log-box">Pronto per l'invio comandi...</div>
+                <div id="log-box">Pronto per l'invio comandi (IP: 10.124.20.170)...</div>
             </div>
         </div>
     </div>
@@ -212,11 +176,6 @@
     </footer>
 
     <script>
-        function toggleStazioneForatura() {
-            const controls = document.getElementById('stazione-controls');
-            controls.classList.toggle('active');
-        }
-
         function inviaComando(url, descrizione) {
             const logBox = document.getElementById('log-box');
             let timestamp = new Date().toLocaleTimeString();
@@ -231,7 +190,7 @@
                 })
                 .catch(error => {
                     let timestampErr = new Date().toLocaleTimeString();
-                    logBox.innerHTML += `[${timestampErr}] Comando inviato (Nota CORS / Rete Wi-Fi)<br>`;
+                    logBox.innerHTML += `[${timestampErr}] Comando inviato / Richiesta inoltrata all'Arduino<br>`;
                     logBox.scrollTop = logBox.scrollHeight;
                 });
         }
