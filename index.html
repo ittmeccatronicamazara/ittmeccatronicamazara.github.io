@@ -75,18 +75,6 @@
             flex-direction: column;
             gap: 12px;
         }
-        .controls-grid {
-            display: none;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 12px;
-        }
-        .controls-grid.active {
-            display: grid;
-        }
-        .btn-full {
-            grid-column: 1 / -1;
-        }
         .btn-link {
             display: block;
             background-color: #3b82f6;
@@ -109,12 +97,6 @@
             background-color: #10b981;
         }
         .btn-green:hover {
-            background-color: #059669;
-        }
-        .btn-cmd {
-            background-color: #10b981;
-        }
-        .btn-cmd:hover {
             background-color: #059669;
         }
         footer {
@@ -154,20 +136,10 @@
                 <div>
                     <div class="card-title">Supervisione e Controllori</div>
                     <div class="links-group">
-                        <!-- Pulsante principale "PLC" che apre/chiude i comandi (senza alcuna funzione di chiamata aggiuntiva) -->
-                        <button class="btn-link btn-green btn-full" onclick="toggleControlli()">PLC</button>
+                        <!-- Pulsante "PLC" semplice senza menu a tendina o sottopagina -->
+                        <div class="btn-link btn-green" style="text-align: center;">PLC</div>
                         
-                        <!-- Griglia dei comandi nascosta inizialmente -->
-                        <div id="stazione-controls" class="controls-grid">
-                            <button class="btn-link btn-cmd" onclick="inviaComando('http://10.124.20.170/cmd/uscita', 'Uscita Braccio (D)')">Uscita Braccio (D)</button>
-                            <button class="btn-link btn-cmd" onclick="inviaComando('http://10.124.20.170/cmd/rotazione', 'Rotazione Braccio (A)')">Rotazione Braccio (A)</button>
-                            <button class="btn-link btn-cmd" onclick="inviaComando('http://10.124.20.170/cmd/abbassa', 'Abbassa Braccio (B)')">Abbassa Braccio (B)</button>
-                            <button class="btn-link btn-cmd" onclick="inviaComando('http://10.124.20.170/cmd/pinza', 'Chiusura Pinza (C)')">Chiusura Pinza (C)</button>
-                            <button class="btn-link btn-cmd" onclick="inviaComando('http://10.124.20.170/cmd/foratura', 'Attiva Foratura (H)')">Attiva Foratura (H)</button>
-                            <button class="btn-link btn-cmd" onclick="inviaComando('http://10.124.20.170/cmd/ruotapinza', 'Ruota Pinza (E)')">Ruota Pinza (E)</button>
-                        </div>
-
-                        <a href="https://drive.google.com/drive/folders/1dhQ4YbOqCBQCpUPiot9FcVfx1ob8fYDa" target="_blank" class="btn-link" style="margin-top: 12px;">Materiale Arduino (Drive)</a>
+                        <a href="https://drive.google.com/drive/folders/1dhQ4YbOqCBQCpUPiot9FcVfx1ob8fYDa" target="_blank" class="btn-link">Materiale Arduino (Drive)</a>
                         <a href="https://www.isruggierodaltavilla.edu.it/" target="_blank" class="btn-link">IS Ruggiero d'Altavilla</a>
                     </div>
                 </div>
@@ -178,24 +150,6 @@
     <footer>
         &copy; 2026 ITT Meccatronica Mazara - GitHub Pages
     </footer>
-
-    <script>
-        function toggleControlli() {
-            const controls = document.getElementById('stazione-controls');
-            controls.classList.toggle('active');
-        }
-
-        function inviaComando(url, descrizione) {
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Risposta:', data);
-                })
-                .catch(error => {
-                    console.log('Comando inviato');
-                });
-        }
-    </script>
 
 </body>
 </html>
