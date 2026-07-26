@@ -78,6 +78,14 @@
             flex-direction: column;
             gap: 12px;
         }
+        .controls-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .btn-full {
+            grid-column: 1 / -1;
+        }
         .btn-link {
             display: block;
             background-color: #3b82f6;
@@ -102,6 +110,18 @@
         .btn-green:hover {
             background-color: #059669;
         }
+        .btn-cmd {
+            background-color: #22c55e;
+        }
+        .btn-cmd:hover {
+            background-color: #16a34a;
+        }
+        .btn-sensor {
+            background-color: #06b6d4;
+        }
+        .btn-sensor:hover {
+            background-color: #0891b2;
+        }
         #log-box {
             margin-top: 15px;
             padding: 10px;
@@ -111,7 +131,7 @@
             font-family: monospace;
             font-size: 0.85rem;
             color: #38bdf8;
-            max-height: 100px;
+            max-height: 120px;
             overflow-y: auto;
             text-align: left;
         }
@@ -159,14 +179,20 @@
                 </div>
             </div>
 
-            <!-- Nuova Sezione: Controllo Stazione di Foratura -->
+            <!-- Sezione: Controllo Stazione di Foratura con tutti i comandi richiesti -->
             <div class="card card-full">
-                <div class="card-title">Stazione di Foratura (Arduino Wi-Fi)</div>
-                <div class="links-group">
-                    <button class="btn-link btn-green" onclick="inviaComando('http://10.55.227.170/cmd/left', 'Avvio Ciclo Foratura')">AVVIA CICLO COMPLETO</button>
-                    <button class="btn-link" onclick="inviaComando('http://10.55.227.170/sensor/check', 'Verifica Sensore Passante')">VERIFICA SENSORE</button>
+                <div class="card-title">Controllo Hardware (Arduino / PLC)</div>
+                <div class="controls-grid">
+                    <button class="btn-link btn-green btn-full" onclick="inviaComando('http://10.55.227.170/cmd/left', 'Esegui Ciclo Completo (Staz. Foratura)')">Esegui Ciclo Completo (Staz. Foratura)</button>
+                    <button class="btn-link btn-cmd" onclick="inviaComando('http://10.55.227.170/cmd/uscita', 'Uscita Braccio (D)')">Uscita Braccio (D)</button>
+                    <button class="btn-link btn-cmd" onclick="inviaComando('http://10.55.227.170/cmd/rotazione', 'Rotazione Braccio (A)')">Rotazione Braccio (A)</button>
+                    <button class="btn-link btn-cmd" onclick="inviaComando('http://10.55.227.170/cmd/abbassa', 'Abbassa Braccio (B)')">Abbassa Braccio (B)</button>
+                    <button class="btn-link btn-cmd" onclick="inviaComando('http://10.55.227.170/cmd/pinza', 'Chiusura Pinza (C)')">Chiusura Pinza (C)</button>
+                    <button class="btn-link btn-cmd" onclick="inviaComando('http://10.55.227.170/cmd/foratura', 'Attiva Foratura (H)')">Attiva Foratura (H)</button>
+                    <button class="btn-link btn-cmd" onclick="inviaComando('http://10.55.227.170/cmd/ruotapinza', 'Ruota Pinza (E)')">Ruota Pinza (E)</button>
+                    <button class="btn-link btn-sensor btn-full" onclick="inviaComando('http://10.55.227.170/sensor/check', 'Verifica Sensore Passante')">Verifica Sensore Passante</button>
                 </div>
-                <div id="log-box">Pronto per l'invio dei comandi all'Arduino (IP: 10.55.227.170)...</div>
+                <div id="log-box">Pronto per l'invio comandi...</div>
             </div>
         </div>
     </div>
@@ -189,7 +215,6 @@
                     logBox.scrollTop = logBox.scrollHeight;
                 })
                 .catch(error => {
-                    // Nota: a volte se Arduino risponde senza headers completi CORS in GET pura, la fetch potrebbe fallire in CORS ma l'azione parte comunque.
                     let timestampErr = new Date().toLocaleTimeString();
                     logBox.innerHTML += `[${timestampErr}] Comando inviato (Nota CORS / Rete Wi-Fi)<br>`;
                     logBox.scrollTop = logBox.scrollHeight;
