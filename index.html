@@ -16,7 +16,7 @@
         .panel { background: #f8f9fa; padding: 20px; border-radius: 10px; border: 1px solid #e9ecef; }
         .panel h2 { font-size: 1.2em; color: #495057; margin-top: 0; border-bottom: 2px solid #dee2e6; padding-bottom: 8px; }
         
-        /* Griglia pulsanti di controllo hardware */
+        /* Griglia pulsanti di controllo */
         .controls-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .btn-full { grid-column: 1 / -1; }
         
@@ -45,9 +45,9 @@
         <h1>ITT_Meccatronica_Mazara</h1>
         
         <div class="main-grid">
-            <!-- Colonna Sinistra: Controllo Stazione di Foratura -->
+            <!-- Colonna Sinistra: Stazione di Foratura con tutti i comandi -->
             <div class="panel">
-                <h2>Controllo Hardware (Arduino / PLC)</h2>
+                <h2>Stazione di Foratura</h2>
                 <div class="controls-grid">
                     <button class="btn-seq btn-full" onclick="inviaComando('left')">Esegui Ciclo Completo (Staz. Foratura)</button>
                     <button class="btn-cmd" onclick="inviaComando('uscita')">Uscita Braccio (D)</button>
@@ -60,7 +60,7 @@
                 </div>
             </div>
 
-            <!-- Colonna Destra: Solo Materie -->
+            <!-- Colonna Destra: Materie -->
             <div class="panel">
                 <h2>Materie</h2>
                 <div class="materie-list">
