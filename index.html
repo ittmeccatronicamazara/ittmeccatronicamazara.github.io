@@ -3,41 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HMI Stazione di Foratura</title>
+    <title>HMI Stazione di Foratura - Dashboard</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; text-align: center; margin: 0; padding: 20px; }
-        .container { max-width: 800px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        h1 { color: #333; margin-bottom: 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 25px; }
-        button { font-size: 16px; font-weight: bold; padding: 15px; cursor: pointer; border: none; border-radius: 8px; color: white; transition: background 0.2s, transform 0.1s; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; }
+        .container { max-width: 1100px; margin: auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { color: #333; text-align: center; margin-bottom: 25px; }
+        
+        /* Layout a due colonne */
+        .main-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 25px; }
+        @media (max-width: 768px) { .main-grid { grid-template-columns: 1fr; } }
+        
+        .panel { background: #f8f9fa; padding: 20px; border-radius: 10px; border: 1px solid #e9ecef; }
+        .panel h2 { font-size: 1.2em; color: #495057; margin-top: 0; border-bottom: 2px solid #dee2e6; padding-bottom: 8px; }
+        
+        /* Griglia pulsanti di controllo */
+        .controls-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .btn-full { grid-column: 1 / -1; }
+        
+        button { font-size: 14px; font-weight: bold; padding: 12px; cursor: pointer; border: none; border-radius: 6px; color: white; transition: background 0.2s, transform 0.1s; }
         button:active { transform: scale(0.98); }
-        .btn-seq { background-color: #007bff; grid-column: 1 / -1; font-size: 18px; padding: 18px; }
+        
+        .btn-seq { background-color: #007bff; font-size: 15px; }
         .btn-seq:hover { background-color: #0056b3; }
         .btn-cmd { background-color: #28a745; }
         .btn-cmd:hover { background-color: #218838; }
         .btn-sensor { background-color: #17a2b8; }
         .btn-sensor:hover { background-color: #138496; }
-        #status-box { background: #e9ecef; padding: 15px; border-radius: 8px; font-size: 1.1em; color: #495057; border-left: 5px solid #007bff; text-align: left; font-family: monospace; }
+        
+        /* Lista materie */
+        .materie-list { display: flex; flex-direction: column; gap: 10px; }
+        .materia-card { background: white; padding: 12px; border-radius: 6px; border-left: 4px solid #6c757d; font-weight: 600; color: #333; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        
+        /* Log box */
+        .log-container { margin-top: 25px; }
+        #status-box { background: #e9ecef; padding: 15px; border-radius: 8px; font-size: 1.0em; color: #495057; border-left: 5px solid #007bff; text-align: left; font-family: monospace; min-height: 40px; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>Controllo Stazione di Foratura</h1>
+        <h1>Controllo Stazione di Foratura - HMI</h1>
         
-        <div class="grid">
-            <button class="btn-seq" onclick="inviaComando('left')">Esegui Ciclo Completo (Staz. Foratura)</button>
-            <button class="btn-cmd" onclick="inviaComando('uscita')">Uscita Braccio (D)</button>
-            <button class="btn-cmd" onclick="inviaComando('rotazione')">Rotazione Braccio (A)</button>
-            <button class="btn-cmd" onclick="inviaComando('abbassa')">Abbassa Braccio (B)</button>
-            <button class="btn-cmd" onclick="inviaComando('pinza')">Chiusura Pinza (C)</button>
-            <button class="btn-cmd" onclick="inviaComando('foratura')">Attiva Foratura (H)</button>
-            <button class="btn-cmd" onclick="inviaComando('ruotapinza')">Ruota Pinza (E)</button>
-            <button class="btn-sensor" onclick="verificaSensore()">Verifica Sensore Passante</button>
+        <div class="main-grid">
+            <!-- Colonna Sinistra: Comandi Arduino, PLC e attuatori -->
+            <div class="panel">
+                <h2>Controllo Hardware (Arduino / PLC)</h2>
+                <div class="controls-grid">
+                    <button class="btn-seq btn-full" onclick="inviaComando('left')">Esegui Ciclo Completo (Staz. Foratura)</button>
+                    <button class="btn-cmd" onclick="inviaComando('uscita')">Uscita Braccio (D)</button>
+                    <button class="btn-cmd" onclick="inviaComando('rotazione')">Rotazione Braccio (A)</button>
+                    <button class="btn-cmd" onclick="inviaComando('abbassa')">Abbassa Braccio (B)</button>
+                    <button class="btn-cmd" onclick="inviaComando('pinza')">Chiusura Pinza (C)</button>
+                    <button class="btn-cmd" onclick="inviaComando('foratura')">Attiva Foratura (H)</button>
+                    <button class="btn-cmd" onclick="inviaComando('ruotapinza')">Ruota Pinza (E)</button>
+                    <button class="btn-sensor btn-full" onclick="verificaSensore()">Verifica Sensore Passante</button>
+                </div>
+            </div>
+
+            <!-- Colonna Destra: 4 Materie / Sezione Didattica -->
+            <div class="panel">
+                <h2>Materie & Sezioni</h2>
+                <div class="materie-list">
+                    <div class="materia-card" style="border-left-color: #007bff;">Meccatronica e Robotica</div>
+                    <div class="materia-card" style="border-left-color: #28a745;">Sistemi e Automazione</div>
+                    <div class="materia-card" style="border-left-color: #ffc107;">Tecnologie Meccaniche</div>
+                    <div class="materia-card" style="border-left-color: #dc3545;">Laboratorio di Misura</div>
+                </div>
+            </div>
         </div>
 
-        <h3>Log di Stato / Risposta:</h3>
-        <div id="status-box">Pronto per l'invio comandi...</div>
+        <!-- Log di Stato in basso -->
+        <div class="log-container">
+            <h3>Log di Stato / Risposta:</h3>
+            <div id="status-box">Pronto per l'invio comandi...</div>
+        </div>
     </div>
 
     <script>
