@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HMI Stazione di Foratura - Dashboard</title>
+    <title>ITT_Meccatronica_Mazara - Dashboard HMI</title>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; }
         .container { max-width: 1100px; margin: auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
@@ -16,7 +16,7 @@
         .panel { background: #f8f9fa; padding: 20px; border-radius: 10px; border: 1px solid #e9ecef; }
         .panel h2 { font-size: 1.2em; color: #495057; margin-top: 0; border-bottom: 2px solid #dee2e6; padding-bottom: 8px; }
         
-        /* Griglia pulsanti di controllo */
+        /* Griglia pulsanti di controllo hardware */
         .controls-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .btn-full { grid-column: 1 / -1; }
         
@@ -42,10 +42,10 @@
 <body>
 
     <div class="container">
-        <h1>Controllo Stazione di Foratura - HMI</h1>
+        <h1>ITT_Meccatronica_Mazara</h1>
         
         <div class="main-grid">
-            <!-- Colonna Sinistra: Comandi Arduino, PLC e attuatori -->
+            <!-- Colonna Sinistra: Controllo Stazione di Foratura -->
             <div class="panel">
                 <h2>Controllo Hardware (Arduino / PLC)</h2>
                 <div class="controls-grid">
@@ -60,14 +60,14 @@
                 </div>
             </div>
 
-            <!-- Colonna Destra: 4 Materie / Sezione Didattica -->
+            <!-- Colonna Destra: Solo Materie -->
             <div class="panel">
-                <h2>Materie & Sezioni</h2>
+                <h2>Materie</h2>
                 <div class="materie-list">
                     <div class="materia-card" style="border-left-color: #007bff;">Meccatronica e Robotica</div>
                     <div class="materia-card" style="border-left-color: #28a745;">Sistemi e Automazione</div>
                     <div class="materia-card" style="border-left-color: #ffc107;">Tecnologie Meccaniche</div>
-                    <div class="materia-card" style="border-left-color: #dc3545;">Laboratorio di Misura</div>
+                    <div class="materia-card" style="border-left-color: #dc3545;">DPOI</div>
                 </div>
             </div>
         </div>
