@@ -3,169 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ITT Meccatronica Mazara - Stazione di Foratura</title>
+    <title>HMI Stazione di Foratura</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #0f172a;
-            color: #f8fafc;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        h1 {
-            color: #38bdf8;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-        .subtitle {
-            color: #94a3b8;
-            margin-bottom: 30px;
-            font-size: 1.1rem;
-            text-align: center;
-        }
-        .container {
-            background-color: #1e293b;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            width: 100%;
-            max-width: 650px;
-            text-align: center;
-        }
-        .section-box {
-            background-color: #334155;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            text-align: left;
-        }
-        .section-box h3 {
-            color: #38bdf8;
-            margin-top: 0;
-            margin-bottom: 10px;
-        }
-        .tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-        .tag {
-            background-color: #1e293b;
-            color: #38bdf8;
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            border: 1px solid #475569;
-        }
-        .btn {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            margin: 15px 0;
-            font-size: 18px;
-            font-weight: bold;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        .btn-green {
-            background-color: #10b981;
-        }
-        .btn-green:hover {
-            background-color: #059669;
-        }
-        .btn-blue {
-            background-color: #3b82f6;
-        }
-        .btn-blue:hover {
-            background-color: #2563eb;
-        }
-        #log-box {
-            margin-top: 20px;
-            background-color: #0f172a;
-            color: #38bdf8;
-            padding: 15px;
-            border-radius: 6px;
-            height: 130px;
-            overflow-y: auto;
-            text-align: left;
-            font-family: monospace;
-            font-size: 13px;
-            border: 1px solid #334155;
-        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; text-align: center; margin: 0; padding: 20px; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { color: #333; margin-bottom: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 25px; }
+        button { font-size: 16px; font-weight: bold; padding: 15px; cursor: pointer; border: none; border-radius: 8px; color: white; transition: background 0.2s, transform 0.1s; }
+        button:active { transform: scale(0.98); }
+        .btn-seq { background-color: #007bff; grid-column: 1 / -1; font-size: 18px; padding: 18px; }
+        .btn-seq:hover { background-color: #0056b3; }
+        .btn-cmd { background-color: #28a745; }
+        .btn-cmd:hover { background-color: #218838; }
+        .btn-sensor { background-color: #17a2b8; }
+        .btn-sensor:hover { background-color: #138496; }
+        #status-box { background: #e9ecef; padding: 15px; border-radius: 8px; font-size: 1.1em; color: #495057; border-left: 5px solid #007bff; text-align: left; font-family: monospace; }
     </style>
 </head>
 <body>
 
-    <h1>ITT Meccatronica Mazara</h1>
-    <div class="subtitle">Laboratorio di Automazione e Sistemi</div>
-
     <div class="container">
+        <h1>Controllo Stazione di Foratura</h1>
         
-        <!-- Sezione Scuola e Materie -->
-        <div class="section-box">
-            <h3>Indirizzo di Studio</h3>
-            <div class="tags">
-                <span class="tag">Meccatronica</span>
-                <span class="tag">Robotica</span>
-                <span class="tag">Elettronica</span>
-                <span class="tag">Elettrotecnica</span>
-            </div>
+        <div class="grid">
+            <button class="btn-seq" onclick="inviaComando('left')">Esegui Ciclo Completo (Staz. Foratura)</button>
+            <button class="btn-cmd" onclick="inviaComando('uscita')">Uscita Braccio (D)</button>
+            <button class="btn-cmd" onclick="inviaComando('rotazione')">Rotazione Braccio (A)</button>
+            <button class="btn-cmd" onclick="inviaComando('abbassa')">Abbassa Braccio (B)</button>
+            <button class="btn-cmd" onclick="inviaComando('pinza')">Chiusura Pinza (C)</button>
+            <button class="btn-cmd" onclick="inviaComando('foratura')">Attiva Foratura (H)</button>
+            <button class="btn-cmd" onclick="inviaComando('ruotapinza')">Ruota Pinza (E)</button>
+            <button class="btn-sensor" onclick="verificaSensore()">Verifica Sensore Passante</button>
         </div>
 
-        <!-- Sezione Tecnologie -->
-        <div class="section-box">
-            <h3>Tecnologie di Controllo</h3>
-            <div class="tags">
-                <span class="tag">PLC (Siemens / Omron)</span>
-                <span class="tag">Arduino UNO R4 WiFi</span>
-                <span class="tag">Smistamento Pneumatico</span>
-                <span class="tag">Web Server IoT</span>
-            </div>
-        </div>
-
-        <h2>Stazione di Foratura</h2>
-        
-        <button id="btn-ciclo" class="btn btn-green">AVVIA CICLO COMPLETO</button>
-        <button id="btn-sensore" class="btn btn-blue">VERIFICA SENSORE</button>
-
-        <div id="log-box">Pronto per l'invio dei comandi all'Arduino (IP: 10.55.227.170)...<br></div>
+        <h3>Log di Stato / Risposta:</h3>
+        <div id="status-box">Pronto per l'invio comandi...</div>
     </div>
 
     <script>
-        const arduinoIP = "10.55.227.170";
-
-        function logMessage(msg) {
-            const logBox = document.getElementById('log-box');
-            const timestamp = new Date().toLocaleTimeString();
-            logBox.innerHTML += `[${timestamp}] ${msg}<br>`;
-            logBox.scrollTop = logBox.scrollHeight;
+        function inviaComando(cmd) {
+            document.getElementById('status-box').innerText = "Invio comando '" + cmd + "' in corso...";
+            fetch('/cmd/' + cmd, { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('status-box').innerText = "Risposta Arduino: " + JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    document.getElementById('status-box').innerText = "Errore di connessione: " + error;
+                });
         }
 
-        function inviaComando(endpoint, nomeComando) {
-            logMessage(`Invio: ${nomeComando}...`);
-            
-            const url = `http://${arduinoIP}${endpoint}`;
-            
-            // Metodo dell'immagine invisibile per aggirare i blocchi di sicurezza del browser
-            const img = new Image();
-            img.src = url + "?t=" + new Date().getTime();
-            
-            logMessage(`Comando ${nomeComando} inviato all'Arduino!`);
+        function verificaSensore() {
+            document.getElementById('status-box').innerText = "Interrogazione sensore in corso...";
+            fetch('/sensor/check', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('status-box').innerText = "Sensore: " + JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    document.getElementById('status-box').innerText = "Errore di connessione: " + error;
+                });
         }
-
-        document.getElementById('btn-ciclo').addEventListener('click', () => {
-            inviaComando('/cmd/left', 'Avvio Ciclo Completo');
-        });
-
-        document.getElementById('btn-sensore').addEventListener('click', () => {
-            inviaComando('/sensor/check', 'Verifica Sensore Passante');
-        });
     </script>
 
 </body>
