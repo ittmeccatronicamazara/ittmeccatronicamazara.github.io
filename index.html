@@ -96,12 +96,6 @@
             background-color: #2563eb;
             transform: translateY(-2px);
         }
-        .btn-green {
-            background-color: #10b981;
-        }
-        .btn-green:hover {
-            background-color: #059669;
-        }
         #log-box {
             margin-top: 15px;
             padding: 10px;
@@ -152,21 +146,18 @@
                 <div>
                     <div class="card-title">Supervisione e Controllori</div>
                     <div class="links-group">
-                        <a href="plc.html" class="btn-link">Pannello Controllo PLC</a>
+                        <!-- Pulsante Pannello Controllo PLC modificato per inviare la chiamata ad Arduino -->
+                        <button class="btn-link" onclick="inviaComando('http://10.124.20.170/cmd/left', 'Pannello Controllo PLC')">Pannello Controllo PLC</button>
                         <a href="https://drive.google.com/drive/folders/1dhQ4YbOqCBQCpUPiot9FcVfx1ob8fYDa" target="_blank" class="btn-link">Materiale Arduino (Drive)</a>
                         <a href="https://www.isruggierodaltavilla.edu.it/" target="_blank" class="btn-link">IS Ruggiero d'Altavilla</a>
                     </div>
                 </div>
             </div>
 
-            <!-- Sezione: Controllo Stazione di Foratura -->
+            <!-- Box di Log per i comandi -->
             <div class="card card-full">
-                <div class="card-title">Controllo Hardware (Arduino / PLC)</div>
-                <div class="links-group">
-                    <button class="btn-link btn-green" onclick="inviaComando('http://10.124.20.170/cmd/left', 'Esegui Ciclo Completo (Staz. Foratura)')">Esegui Ciclo Completo (Staz. Foratura)</button>
-                    <button class="btn-link" onclick="inviaComando('http://10.124.20.170/sensor/check', 'Verifica Sensore Passante')">Verifica Sensore Passante</button>
-                </div>
-                <div id="log-box">Pronto per l'invio comandi (IP: 10.124.20.170)...</div>
+                <div class="card-title">Log Attività (IP: 10.124.20.170)</div>
+                <div id="log-box">Pronto per l'invio comandi...</div>
             </div>
         </div>
     </div>
