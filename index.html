@@ -62,9 +62,6 @@
             flex-direction: column;
             justify-content: space-between;
         }
-        .card-full {
-            grid-column: 1 / -1;
-        }
         .card-title {
             text-align: center;
             font-size: 1.25rem;
@@ -120,25 +117,6 @@
         .btn-cmd:hover {
             background-color: #059669;
         }
-        .btn-sensor {
-            background-color: #06b6d4;
-        }
-        .btn-sensor:hover {
-            background-color: #0891b2;
-        }
-        #log-box {
-            margin-top: 15px;
-            padding: 10px;
-            background: #0f172a;
-            border: 1px solid #334155;
-            border-radius: 6px;
-            font-family: monospace;
-            font-size: 0.85rem;
-            color: #38bdf8;
-            max-height: 120px;
-            overflow-y: auto;
-            text-align: left;
-        }
         footer {
             text-align: center;
             padding: 15px;
@@ -171,13 +149,13 @@
                 </div>
             </div>
 
-            <!-- Pannello Destra: Sezioni PLC, Arduino e Istituto -->
+            <!-- Pannello Destra: Sezioni PLC e Istituto -->
             <div class="card">
                 <div>
                     <div class="card-title">Supervisione e Controllori</div>
                     <div class="links-group">
-                        <!-- Pulsante principale "Stazione di Foratura" che apre/chiude i comandi -->
-                        <button class="btn-link btn-green btn-full" onclick="toggleStazioneForatura()">Stazione di Foratura</button>
+                        <!-- Pulsante principale "PLC" che apre/chiude i comandi -->
+                        <button class="btn-link btn-green btn-full" onclick="toggleStazioneForatura()">PLC</button>
                         
                         <!-- Griglia dei comandi nascosta inizialmente -->
                         <div id="stazione-controls" class="controls-grid">
@@ -196,15 +174,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Sezione: Controllo Stazione di Foratura (Sensore e Log) -->
-            <div class="card card-full">
-                <div class="card-title">Controllo Hardware (Arduino / PLC)</div>
-                <div class="links-group">
-                    <button class="btn-link btn-sensor btn-full" onclick="inviaComando('http://10.124.20.170/sensor/check', 'Verifica Sensore Passante')">Verifica Sensore Passante</button>
-                </div>
-                <div id="log-box">Pronto per l'invio comandi...</div>
-            </div>
         </div>
     </div>
 
@@ -219,21 +188,13 @@
         }
 
         function inviaComando(url, descrizione) {
-            const logBox = document.getElementById('log-box');
-            let timestamp = new Date().toLocaleTimeString();
-            logBox.innerHTML += `[${timestamp}] Invio: ${descrizione}...<br>`;
-            
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
-                    let timestampRes = new Date().toLocaleTimeString();
-                    logBox.innerHTML += `[${timestampRes}] Risposta: <span style="color:#10b981;">${JSON.stringify(data)}</span><br>`;
-                    logBox.scrollTop = logBox.scrollHeight;
+                    console.log('Risposta:', data);
                 })
                 .catch(error => {
-                    let timestampErr = new Date().toLocaleTimeString();
-                    logBox.innerHTML += `[${timestampErr}] Comando inviato (Nota CORS / Rete Wi-Fi)<br>`;
-                    logBox.scrollTop = logBox.scrollHeight;
+                    console.log('Comando inviato');
                 });
         }
     </script>
